@@ -21,7 +21,9 @@ namespace Prog1
 		return 1;
 	}
 
-	Line* input(int&);
+	Line* create_matrix(int&);
+	Line* input_in_line(Line*& lines, int i);
+	Line* input_element(Line*& lines, int i);
 	void output(const char*, Line a[], int);
 	Line* erase(Line*&, int);
 	void New_matrix(Line*&, int);

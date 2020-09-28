@@ -9,16 +9,16 @@ using std::endl;
 
 namespace Prog1
 {
-	#ifdef _DEBUG // нужно для того, чтобы проверять утечки памяти
-	#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-	#else
-	#define DBG_NEW new
-	#endif
+#ifdef _DEBUG // нужно для того, чтобы проверять утечки памяти
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+#else
+#define DBG_NEW new
+#endif
 	Line* erase(Line*& lines, int m)
 	{
 		for (int i = 0; i < m; i++)
 		{
-			element *el = lines[i].el;
+			element* el = lines[i].el;
 			while (el)
 			{
 				element* cur = el;
@@ -30,7 +30,108 @@ namespace Prog1
 		return nullptr;
 	}
 
-	Line* input(int& rm)
+	Line* input_element(Line*& lines, int i)
+	{
+		const char* pr;
+		pr = "";
+		int index = 0;
+		do {
+			cout << pr << endl;
+			pr = "You are wrong; repeat please!";
+			cout << "Enter index of item: ";
+		} while (getNum(index) < 0);
+
+		if (lines[i].el->val == NULL) // вставляется первый элмемент
+		{
+			double value;
+			pr = "";
+			do {
+				cout << pr << endl;
+				pr = "You are wrong; repeat please!";
+				cout << "Enter value" << endl;
+			} while (getNum(value) < 0);
+			lines[i].el->j = index;
+			lines[i].el->val = value;
+			lines[i].el->next = nullptr;
+		}
+		else // если в строке уже есть элементы
+		{
+			element* el, * pred;
+			el = lines[i].el;
+			pred = el;
+			while (el && index > el->j)
+			{
+				pred = el;
+				el = el->next;
+			}
+			if (el && index == el->j) // если в строке уже есть элемент с таким индексом
+			{
+				cout << "Error. Duplicate of values" << endl;
+				return nullptr;
+			}
+			element* NewEl;
+			NewEl = DBG_NEW element;
+			if (pred == el)
+			{
+				NewEl->next = pred;
+				lines[i].el = NewEl;
+			}
+			else
+			{
+				NewEl->next = pred->next;
+				pred->next = NewEl;
+			}
+			NewEl->j = index;
+			double value;
+			pr = "";
+			do {
+				cout << pr << endl;
+				pr = "You are wrong; repeat please!";
+				cout << "Enter value" << endl;
+			} while (getNum(value) < 0);
+			NewEl->val = value;
+		}
+	}
+
+	Line* input_in_line(Line* &lines, int i)
+	{
+		const char* pr;
+		pr = "";
+		do {
+			cout << pr << endl;
+			cout << "Enter number of items in line #" << (i + 1) << " --> ";
+			pr = "You are wrong; repeat please!";
+			if (getNum(lines[i].n) < 0) {
+				erase(lines, i); // освободить занятую память
+				return nullptr;
+			}
+		} while (lines[i].n < 1);
+
+		try {
+			lines[i].el = DBG_NEW element;
+			lines[i].el->val = NULL;
+			lines[i].el->next = nullptr;
+		}
+		catch (std::bad_alloc& ba) {
+			cout << "------ too many items in matrix: " << ba.what() << endl;
+			erase(lines, i);
+			return nullptr;
+		}
+		pr = "";
+		int count = 0;
+		do {
+			cout << pr << endl;
+			pr = "You are wrong; repeat please!";
+			cout << "Enter the count of items you want to insert in the row" << endl;
+		} while ((getNum(count) < 0) || (count > lines[i].n));
+		//cout << "Enter items for matrix line #" << (i + 1) << ":" << endl;
+		for (int j = 0; j < count; ++j)
+		{
+			input_element(lines, i);
+		}
+	}
+
+	Line* create_matrix(int& rm) // разбить функцию (добавление элемента)
 	{
 		const char* pr = ""; //  будущее сообщение об ошибке
 		Line* lines = nullptr; // массив строк
@@ -45,105 +146,12 @@ namespace Prog1
 		try {
 			lines = DBG_NEW Line[m];
 		}
-		catch (std::bad_alloc& ba)
-		{
+		catch (std::bad_alloc& ba) {
 			cout << "------ too many rows in matrix: " << ba.what() << endl;
 			return nullptr;
 		}
-		for (int i = 0; i < m; i++) 
-		{
-			pr = "";
-			do {
-				cout << pr << endl;
-				cout << "Enter number of items in line #" << (i + 1) << " --> ";
-				pr = "You are wrong; repeat please!";
-				if (getNum(lines[i].n) < 0) {
-					erase(lines, i); // освободить занятую память
-					return nullptr;
-				}
-			} while (lines[i].n < 1);
-
-			try {
-				lines[i].el = DBG_NEW element;
-				lines[i].el->val = NULL;
-				lines[i].el->next = nullptr;
-			}
-			catch (std::bad_alloc& ba)
-			{
-				cout << "------ too many items in matrix: " << ba.what() << endl;
-				erase(lines, i);
-				return nullptr;
-			}
-			pr = "";
-			int count = 0;
-			do {
-				cout << pr << endl;
-				pr = "You are wrong; repeat please!";
-				cout << "Enter the count of items you want to insert in the row" << endl;
-			} while ((getNum(count) < 0) || (count > lines[i].n));
-			//cout << "Enter items for matrix line #" << (i + 1) << ":" << endl;
-			for (int j = 0; j < count; ++j) 
-			{
-				pr = "";
-				int index = 0;
-				do {
-					cout << pr << endl;
-					pr = "You are wrong; repeat please!";
-					cout << "Enter index of item: ";
-				} while (getNum(index) < 0);
-
-				if (lines[i].el->val == NULL) // вставляется первый элмемент
-				{
-					double value;
-					pr = "";
-					do {
-						cout << pr << endl;
-						pr = "You are wrong; repeat please!";
-						cout << "Enter value" << endl;
-					} while (getNum(value) < 0);
-					lines[i].el->j = index;
-					lines[i].el->val = value;
-					lines[i].el->next = nullptr;
-				}
-				else // если в строке уже есть элементы
-				{
-					element *el, *pred;
-					el = lines[i].el;
-					pred = el;
-					while (el && index > el->j)
-					{
-						pred = el;
-						el = el->next;
-					}
-					if (el && index == el->j) // если в строке уже есть элемент с таким индексом
-					{
-						cout << "Error. Duplicate of values" << endl;
-						continue;
-					}
-					element* NewEl;
-					NewEl = DBG_NEW element;
-					if (pred == el)
-					{
-						NewEl->next = pred;
-						lines[i].el = NewEl;
-					}
-					else
-					{
-						NewEl->next = pred->next;
-						pred->next = NewEl;
-					}
-					NewEl->j = index;
-					double value;
-					pr = "";
-					do {
-						cout << pr << endl;
-						pr = "You are wrong; repeat please!";
-						cout << "Enter value" << endl;
-					} while (getNum(value) < 0);
-					NewEl->val = value;
-				}
-			}
-		}
+		for (int i = 0; i < m; i++)
+			input_in_line(lines, i);
 		rm = m;
 		return lines;
 	}
@@ -207,7 +215,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	Line* arr = nullptr;
 	int m;
-	arr = input(m);
+	arr = create_matrix(m);
 	if (!arr)
 	{
 		cout << "Incorrect data" << endl;
