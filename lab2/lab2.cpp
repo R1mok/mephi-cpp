@@ -4,19 +4,17 @@
 #include <iostream>
 #include <stdlib.h>
 #include "Nephroid.h"
+#include "NephroidMethods.h"
 
-int main()
-{
+int main() {
 	Prog2::Nephroid N(3, 2);
 	int f11 = 1;
-	double r;
 	char* s = NULL;
-	while (f11)
-	{
+	while (f11) {
 		std::cout << "Your Nephroid is: ";
 		s = N.frm();
 		std::cout << s << std::endl;
-		//delete[] s;
+		delete[] s;
 		std::cout << "Area: " << N.Area() << std::endl;
 		std::cout << "Length: " << N.Length() << std::endl;
 		std::cout << "Coordinate X: " << N.X_coord() << std::endl;
@@ -30,7 +28,6 @@ int main()
 		std::cin >> t;
 		N.setT(t);
 		std::cout << "Nephroid: " << N.frm() << std::endl;
-		//int f12 = 1;
 		f11--;
 	}
 	return 0;
