@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <cmath>
-#include "..//BigInt.h"
+#include "../lab3a/BigInt.h"
 
 
 using namespace Prog3a;
