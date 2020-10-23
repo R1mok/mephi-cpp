@@ -7,12 +7,12 @@
 
 namespace Prog3a {
 	class BigInt {
-	public :
+	public:
 		BigInt() :count(0) {
 			for (int i = 0; i < _MAX_COUNT; ++i)
 				num[i] = '0';
 		}
-		BigInt(long &value) {
+		BigInt(long& value) {
 			bool sign = true;
 			if (value < 0) {
 				sign = false;
@@ -85,12 +85,12 @@ namespace Prog3a {
 			return s;
 		}
 
-	//geters
+		//geters
 		int getCount() const { return count; }
 		int getMaxCount() const { return _MAX_COUNT; }
 		char getSign() const { return num[count]; }
-	//setters
-		//void setNewNum(int newCount, long newNum);
+		//setters
+			//void setNewNum(int newCount, long newNum);
 		void increase() {
 			try {
 				if (count + 1 == _MAX_COUNT)
