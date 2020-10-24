@@ -11,11 +11,9 @@ int main()
 	BigInt b(temp);
 	const char* s = "-3213";
 	BigInt c(s);
-	//c.decrease();
-	//c.print(std::cout);
 	std::cout << std::endl;
 	b.print(std::cout);
 	b.increase();
-	b.decrease();
+	b.print(std::cout);
 	return 0;
 }
