@@ -25,7 +25,7 @@ namespace Prog3a {
 			num[i] = value % 10;
 			value /= 10;
 		}
-		if (sign == false) // добавляем знак числа
+		if (sign == false) // add sign in array
 			num[count] = '-';
 		else 
 			num[count] = '+';
@@ -42,8 +42,8 @@ namespace Prog3a {
 		long curNum = atol(string);
 		bool sign = true;
 		if (curNum < 0) {
-			count = strlen(string) - 1; // если число < 0, то цифр в числе на 1 меньше,
-			curNum = -curNum; // чем количество символов
+			count = strlen(string) - 1; // if number < 0, count of digits is less than one 
+			curNum = -curNum; 
 			sign = false;
 		} else 
 			count = strlen(string);
@@ -52,7 +52,7 @@ namespace Prog3a {
 			num[i] = curNum % 10;
 			curNum /= 10;
 		}
-		if (sign == false) // добавляем знак
+		if (sign == false) // add sign in array
 			num[count] = '-';
 		else 
 			num[count] = '+';

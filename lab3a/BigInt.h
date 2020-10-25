@@ -8,7 +8,7 @@
 namespace Prog3a {
 	class BigInt {
 	public:
-		// Конструкторы
+		// Constructors
 		BigInt() :count(0) {
 			for (int i = 0; i < _MAX_COUNT; ++i)
 				num[i] = '0';
@@ -16,21 +16,21 @@ namespace Prog3a {
 		BigInt(long& value);
 		BigInt(const char*& string);
 
-		std::ostream& print(std::ostream& s) const; // вывод числа
+		std::ostream& print(std::ostream& s) const; // number output
 
 		//geters
-		int getCount() const { return count; } // получить количество цифр в числе
-		int getMaxCount() const { return _MAX_COUNT; } // получить максимальное число цифр в числе
-		char getSign() const { return num[count]; } // получить знак числа
+		int getCount() const { return count; } // get count of digit in number
+		int getMaxCount() const { return _MAX_COUNT; } // get max digit
+		char getSign() const { return num[count]; } // get sign
 		
 		//setters
 		//void setNewNum(int newCount, long newNum);
 		void increase(); // * 10 
 		void decrease(); // dim 10 
 	private:
-		static const int _MAX_COUNT = 47; // максимальный размер цифр в числе	 
-		int count; // количество цифр в числе
-		char num[_MAX_COUNT]; // число
+		static const int _MAX_COUNT = 47; // max digit  
+		int count; // digit in number
+		char num[_MAX_COUNT]; // number
 	};
 }
 #endif
