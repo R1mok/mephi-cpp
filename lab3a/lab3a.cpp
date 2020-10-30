@@ -44,8 +44,8 @@ int main()
 	std::cout << "New count is: " << s1.getCount() << std::endl;
 	//testing methods
 	BigInt d = b;
-	b = b.sum(c);
-	c = c.sum(d);
+	b = b.add(c);
+	c = c.add(d);
 	std::cout << "b = b + c: ";
 	b.print(std::cout);
 	std::cout << "c = c + b: ";

@@ -32,7 +32,7 @@ namespace Prog3a {
 		//other methods
 		void increase(); // * 10
 		void decrease(); // dim 10
-		const BigInt sum(BigInt& number) const;
+		const BigInt add(BigInt& number) const;
 		const BigInt sub(BigInt& number) const;
 		const BigInt operator=(const BigInt& number);
 	private:

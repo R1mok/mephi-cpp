@@ -120,7 +120,7 @@ namespace Prog3a {
 			num[_MAX_COUNT] = '0';
 		}
 	}
-	const BigInt BigInt::sum(BigInt& number) const {
+	const BigInt BigInt::add(BigInt& number) const {
 		BigInt n1;
 		n1 = (*this);
 		n1 = ~n1;
@@ -152,7 +152,7 @@ namespace Prog3a {
 			curNum.setDigit(curNum.getMaxCount(), '9');
 		else
 			curNum.setDigit(curNum.getMaxCount(), '0');
-		num = (num).sum(curNum);
+		num = (num).add(curNum);
 		return num;
 	}
 	const BigInt BigInt::operator=(const BigInt& number) {
