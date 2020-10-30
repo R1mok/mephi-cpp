@@ -64,21 +64,6 @@ namespace Prog3b {
 			num[i] = '0';
 		}
 	}
-	std::ostream& BigInt::print(std::ostream& s) const {
-		try {
-			if (count == 0)
-				throw std::range_error("Output error");
-		}
-		catch (std::range_error& error) {
-			std::cerr << error.what() << std::endl;
-		}
-		if (count != 0 && num[_MAX_COUNT] == '9')
-			s << "-";
-		for (int i = count - 1; i >= 0; --i)
-			s << int(num[i]);
-		s << std::endl;
-		return s;
-	}
 	std::ostream& operator<<(std::ostream& stream, const BigInt& number) {
 		if (number.getSign() == '9') {
 			stream << "-";
@@ -115,6 +100,7 @@ namespace Prog3b {
 				number.setDigit(c - i - 1, out[i]);
 			}
 			if (number.getDigit(c - 1) == '-') {
+				number.setDigit(c - 1, '0');
 				number.setDigit(number.getMaxCount(), '9');
 				number.setCount(c - 1);
 			}

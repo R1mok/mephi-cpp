@@ -16,7 +16,6 @@ namespace Prog3b {
 		BigInt(long& value);
 		BigInt(const char*& string);
 
-		std::ostream& print(std::ostream& s) const; // output of number
 		friend std::ostream& operator<<(std::ostream& stream, const BigInt& number);
 		friend std::istream& operator>>(std::istream& stream, BigInt& number);
 		const BigInt operator~() const;
