@@ -16,10 +16,6 @@ namespace Prog3b {
 		BigInt(long& value);
 		BigInt(const char*& string);
 
-		friend std::ostream& operator<<(std::ostream& stream, const BigInt& number);
-		friend std::istream& operator>>(std::istream& stream, BigInt& number);
-		const BigInt operator~() const;
-
 		//geters
 		int getCount() const { return count; } // get count of digit in number
 		int getMaxCount() const { return _MAX_COUNT; } // get max count of digit in number
@@ -27,10 +23,13 @@ namespace Prog3b {
 		char getDigit(int i) const { return num[i]; } // get one digit for the index
 
 		//setters
-		void setDigit(int index, char digit) { num[index] = digit; }
-		void setCount(int c) { count = c; }
+		void setDigit(int index, char digit) { num[index] = digit; } //set one digit of number
+		void setCount(int c) { count = c; } //set count of digit in number
 
 		//other methods
+		friend std::ostream& operator<<(std::ostream& stream, const BigInt& number);
+		friend std::istream& operator>>(std::istream& stream, BigInt& number);
+		const BigInt operator~() const;
 		void increase(); // * 10
 		void decrease(); // dim 10
 		const BigInt operator+(const BigInt& number) const;

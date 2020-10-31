@@ -69,7 +69,7 @@ namespace Prog3b {
 			stream << "-";
 		}
 		for (int i = number.getCount() - 1; i >= 0; --i)
-			stream << number.getDigit(i) - '0';
+			stream << number.getDigit(i) - '0'; // output int
 		stream << std::endl;
 		return stream;
 	}
@@ -99,9 +99,9 @@ namespace Prog3b {
 			for (; i < c; ++i) {
 				number.setDigit(c - i - 1, out[i]);
 			}
-			if (number.getDigit(c - 1) == '-') {
-				number.setDigit(c - 1, '0');
-				number.setDigit(number.getMaxCount(), '9');
+			if (number.getDigit(c - 1) == '-') { // if number negative "-" counted like digit in number
+				number.setDigit(c - 1, '0'); // we remove this "-"
+				number.setDigit(number.getMaxCount(), '9'); // and add it to last digit
 				number.setCount(c - 1);
 			}
 			else
@@ -168,10 +168,12 @@ namespace Prog3b {
 			rem = q1 / 10;
 		}
 		res = ~res;
-		if (res.getDigit(res.getCount()) == '1')
+		if (res.getCount() <= curNum.getCount()) // set max count of 2 numbers
+			res.setCount(curNum.getCount());
+		if (res.getDigit(res.getCount()) != '0')
 			res.setCount(res.getCount() + 1);
 		int i = res.getCount() - 1;
-		while (res.getDigit(i) == '0' && i > 0) {
+		while (res.getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
 			res.setDigit(i, res.getSign());
 			--i;
 		}
