@@ -6,66 +6,62 @@
 using namespace Prog3a;
 int main()
 {
-	BigInt a;
-	//testing construct
-	std::cout << "a:";
-	a.print(std::cout);
-	long bValue = 302;
-	std::cout << "b:";
-	BigInt b(bValue);
-	b.print(std::cout);
-	std::cout << "c:";
-	const char* cValue = "-321";
-	BigInt c(cValue);
-	c.print(std::cout);
-	//testing getters
-	std::cout << "Last digit of a: " << a.getDigit(0) << " b:" << b.getDigit(0);
-	std::cout << " c:" << c.getDigit(0) << std::endl;
-	std::cout << "Count of digit: a:" << a.getCount() << " b:" << b.getCount();
-	std::cout << " c:" << c.getCount() << std::endl;
-	std::cout << "Max count " << a.getMaxCount() << std::endl;
-	std::cout << "Sign: a:" << a.getSign() << " b:" << b.getSign();
-	std::cout << " c:" << c.getSign() << std::endl;
-	//testing setters
-	long s1num;
-	std::cout << "Write number: ";
-	std::cin >> s1num;
-	BigInt s1(s1num);
-	int k;
-	std::cout << "Set new first digit: ";
-	char s2;
-	std::cin >> s2;
-	s1.setDigit(s1.getCount() - 1, s2);
-	std::cout << "New number: ";
-	s1.print(std::cout);
-	std::cout << "Set count of digit: ";
-	std::cin >> k;
-	s1.setCount(k);
-	std::cout << "New count is: " << s1.getCount() << std::endl;
-	//testing methods
-	BigInt d = b;
-	b = b.add(c);
-	c = c.add(d);
-	std::cout << "b = b + c: ";
-	b.print(std::cout);
-	std::cout << "c = c + b: ";
-	c.print(std::cout);
-	c = c.sub(b);
-	std::cout << "c = c - b: ";
-	c.print(std::cout);
-	std::cout << "b: ";
-	b.print(std::cout);
-	b.increase();
-	std::cout << "Increase b: ";
-	b.print(std::cout);
-	b.decrease();
-	std::cout << "Decrease b: ";
-	b.print(std::cout);
-	b.decrease();
-	std::cout << "Decrease b: ";
-	b.print(std::cout);
-	b.increase();
-	std::cout << "Increase b: ";
-	b.print(std::cout);
+	const char* message[] = {
+		"0. Quit",
+		"1.Add this numbers",
+		"2.Sub this numbers",
+		"3.Increase number",
+		"4.Decrease number",
+		"5.Get additional code" };
+	const int countMessage = sizeof(message) / sizeof(message[0]);
+	int c = 0;
+	BigInt n1, n2, n3;
+	const char* s = "-324";
+	long l = -424231;
+	n1 = s;
+	n2 = l;
+	while (1) {
+		for (int i = 0; i < countMessage; ++i)
+			std::cout << message[i] << std::endl;
+		std::cin >> c;
+		if (c == 1) {
+			n3 = n1.add(n2);
+			std::cout << "Result is: ";
+			n3.print(std::cout);
+			std::cout << "Success" << std::endl;
+		}
+		if (c == 2) {
+			n3 = n1.sub(n2);
+			std::cout << "Result is: ";
+			n3.print(std::cout);
+			std::cout << "Success" << std::endl;
+		}
+		if (c == 3) {
+			n1.increase();
+			n2.increase();
+			std::cout << "First number: ";
+			n1.print(std::cout);
+			std::cout << "Second number: ";
+			n2.print(std::cout);
+		}
+		if (c == 4) {
+			n1.decrease();
+			n2.decrease();
+			std::cout << "First number: ";
+			n1.print(std::cout);
+			std::cout << "Second number: ";
+			n2.print(std::cout);
+		}
+		if (c == 5) {
+			n1 = ~n1;
+			n2 = ~n2;
+			std::cout << "First number: ";
+			n1.print(std::cout);
+			std::cout << "Second number: ";
+			n2.print(std::cout);
+		}
+		if (c == 0)
+			break;
+	}
 	return 0;
 }

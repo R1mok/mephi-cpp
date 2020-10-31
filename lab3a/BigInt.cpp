@@ -75,7 +75,7 @@ namespace Prog3a {
 		if (count != 0 && num[_MAX_COUNT] == '9')
 			s << "-";
 		for (int i = count - 1; i >= 0; --i)
-			s << num[i] - '0';
+			s << num[i] - '0'; // output int!
 		s << std::endl;
 		return s;
 	}
@@ -121,8 +121,7 @@ namespace Prog3a {
 		}
 	}
 	const BigInt BigInt::add(BigInt& number) const {
-		BigInt n1;
-		n1 = (*this);
+		BigInt n1 = *this;
 		n1 = ~n1;
 		number = ~number;
 		int q1, q2, rem = 0;
@@ -135,10 +134,12 @@ namespace Prog3a {
 		}
 		n1 = ~n1;
 		number = ~number;
-		if (n1.getDigit(n1.getCount()) == '1')
+		if (n1.getCount() <= number.getCount()) // set max count of 2 numbers
+			n1.setCount(number.getCount());
+		if (n1.getDigit(n1.getCount()) != '0')
 			n1.setCount(n1.getCount() + 1);
 		int i = n1.getCount() - 1;
-		while (n1.getDigit(i) == '0' && i > 0) {
+		while (n1.getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
 			n1.setDigit(i, n1.getSign());
 			--i;
 		}

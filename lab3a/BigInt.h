@@ -16,9 +16,6 @@ namespace Prog3a {
 		BigInt(long& value);
 		BigInt(const char*& string);
 
-		std::ostream& print(std::ostream& s) const; // output of number
-		const BigInt operator~() const;
-
 		//geters
 		int getCount() const { return count; } // get count of digit in number
 		int getMaxCount() const { return _MAX_COUNT; } // get max count of digit in number
@@ -26,10 +23,12 @@ namespace Prog3a {
 		char getDigit(int i) const { return num[i]; } // get one digit for the index
 
 		//setters
-		void setDigit(int index, char digit) { num[index] = digit; }
-		void setCount(int c) { count = c; }
+		void setDigit(int index, char digit) { num[index] = digit; } //set one digit of number
+		void setCount(int c) { count = c; } //set count of digit in number
 
 		//other methods
+		std::ostream& print(std::ostream& s) const;
+		const BigInt operator~() const;
 		void increase(); // * 10
 		void decrease(); // dim 10
 		const BigInt add(BigInt& number) const;
