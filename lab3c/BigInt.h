@@ -38,7 +38,7 @@ namespace Prog3c {
 		const BigInt& operator+(BigInt& number);
 		const BigInt& operator-(BigInt& number);
 		BigInt& operator=(const BigInt& number);
-		BigInt& operator = (BigInt&&);
+		BigInt& operator=(BigInt&&);
 	private:
 		static const int _MAX_COUNT = 13; // max digit
 		int count; // digit in number

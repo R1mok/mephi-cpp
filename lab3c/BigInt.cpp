@@ -28,8 +28,7 @@ namespace Prog3c {
 		catch (std::range_error& error) {
 			std::cerr << error.what() << std::endl;
 		}
-		delete[] num;
-		num = new char[k+1];
+		num = new char[k + 1];
 		count = k;
 		for (int i = 0; i < k; ++i) {
 			num[i] = (value % 10) + '0';
@@ -42,13 +41,13 @@ namespace Prog3c {
 	}
 	BigInt::BigInt(const char*& string) {
 		int s = strlen(string);
-		try {
+		/*try {
 			if (_MAX_COUNT <= s)
 				throw std::range_error("String too large");
 		}
 		catch (std::range_error& error) {
 			std::cerr << error.what() << std::endl;
-		}
+		}*/
 		long curNum = atol(string);
 		bool sign = true;
 		if (curNum < 0) {
@@ -58,7 +57,6 @@ namespace Prog3c {
 		}
 		else
 			count = s;
-		delete[] num;
 		num = new char[count + 1];
 		for (int i = 0; i < count; ++i) {
 			num[i] = (curNum % 10) + '0';
@@ -119,7 +117,7 @@ namespace Prog3c {
 		return istream;
 	}
 	const BigInt& BigInt::operator~() {
-		BigInt *num = this;
+		BigInt* num = this;
 		BigInt res(count, 1);
 		if (num->getSign() == '9') {
 			for (int i = 0; i < num->getCount(); ++i)
@@ -141,17 +139,17 @@ namespace Prog3c {
 	BigInt BigInt::increase() {
 		int curCount = count;
 		curCount++;
+		BigInt res(curCount, 1);
 		if (num[0] == '0' && (curCount == 1 || curCount == 2)) {
-			num[1] = '1';
+			res.num[1] = '1';
 		}
 		else {
-			BigInt res(curCount, 1);
 			for (int i = 1; i <= curCount; ++i) {
 				res.num[i] = num[i - 1];
 			}
-			res.num[0] = '0';
-			return res;
 		}
+		res.num[0] = '0';
+		return res;
 	}
 
 	BigInt BigInt::decrease() {
@@ -165,12 +163,12 @@ namespace Prog3c {
 			return res;
 		}
 		for (int i = 1; i <= curCount + 1; ++i)
-			res.num[i-1] = num[i];
+			res.num[i - 1] = num[i];
 		return res;
 	}
 
 	const BigInt& BigInt::operator+(BigInt& number) {
-		BigInt *res = this;
+		BigInt* res = this;
 		*res = ~(*res);
 		BigInt curNum;
 		curNum = ~number;
