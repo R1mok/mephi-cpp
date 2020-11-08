@@ -168,10 +168,13 @@ namespace Prog3c {
 	}
 
 	const BigInt& BigInt::operator+(BigInt& number) {
+		char* curThis = this->num;
+		int curCount = this->count;
 		BigInt* res = this;
 		*res = ~(*res);
 		BigInt curNum;
-		curNum = ~number;
+		curNum = number;
+		curNum = ~curNum;
 		int q1, q2, rem = 0;
 		if (res->count < curNum.count)
 			(*res).setCount(curNum.count);
@@ -193,6 +196,8 @@ namespace Prog3c {
 			--i;
 		}
 		res->setCount(i + 1);
+		this->num = curThis;
+		this->count = curCount;
 		return *res;
 	}
 
