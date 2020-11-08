@@ -67,6 +67,16 @@ namespace Prog3c {
 		else
 			num[count] = '0';
 	}
+	BigInt::BigInt(const BigInt& number, int m) {
+		num = new char[number.count + m + 1];
+		int i = 0;
+		for (; i < number.count; ++i)
+			num[i] = number.num[i];
+		for (; i < number.count + m; ++i)
+			num[i] = '0';
+		count = number.count + m;
+		num[count] = number.getSign();
+	}
 	std::ostream& operator<<(std::ostream& stream, const BigInt& number) {
 		if (number.getSign() == '9') {
 			stream << "-";
@@ -168,37 +178,33 @@ namespace Prog3c {
 	}
 
 	const BigInt& BigInt::operator+(BigInt& number) {
-		char* curThis = this->num;
-		int curCount = this->count;
-		BigInt* res = this;
-		*res = ~(*res);
+		BigInt res(*this, 0);
+		res = ~res;
 		BigInt curNum;
 		curNum = number;
 		curNum = ~curNum;
 		int q1, q2, rem = 0;
-		if (res->count < curNum.count)
-			(*res).setCount(curNum.count);
+		if (res.count < curNum.count)
+			res.setCount(curNum.count);
 		for (int i = 0; i < count; ++i) {
-			q1 = (res->getDigit(i)) - '0';
+			q1 = res.getDigit(i) - '0';
 			q2 = (curNum.getDigit(i)) - '0';
 			q1 = q1 + q2 + rem;
-			res->setDigit(i, (q1 % 10) + '0');
+			res.setDigit(i, (q1 % 10) + '0');
 			rem = q1 / 10;
 		}
-		*res = ~(*res);
-		if (res->getCount() <= curNum.getCount()) // set max count of 2 numbers
-			res->setCount(curNum.getCount());
+		res = ~res;
+		if (res.getCount() <= curNum.getCount()) // set max count of 2 numbers
+			res.setCount(curNum.getCount());
 		/*if (res->getDigit(res->getCount()) != '0')
 			res->setCount(res->getCount() + 1);*/
-		int i = res->getCount() - 1;
-		while (res->getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
-			res->setDigit(i, res->getSign());
+		int i = res.getCount() - 1;
+		while (res.getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
+			res.setDigit(i, res.getSign());
 			--i;
 		}
-		res->setCount(i + 1);
-		this->num = curThis;
-		this->count = curCount;
-		return *res;
+		res.setCount(i + 1);
+		return res;
 	}
 
 	const BigInt& BigInt::operator-(BigInt& number) {
