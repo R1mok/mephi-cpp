@@ -16,6 +16,7 @@ namespace Prog3c {
 		BigInt(int k, int);
 		BigInt(long& value);
 		BigInt(const char*& string);
+		BigInt(const BigInt& number, int m);
 		BigInt(BigInt&& cur) : count(cur.count), num(cur.num) {
 			cur.num = nullptr;
 		}
