@@ -21,13 +21,6 @@ namespace Prog3c {
 			++k;
 			cur /= 10;
 		}
-		try {
-			if (_MAX_COUNT < k)
-				throw std::range_error("Number value is too large");
-		}
-		catch (std::range_error& error) {
-			std::cerr << error.what() << std::endl;
-		}
 		num = new char[k + 1];
 		count = k;
 		for (int i = 0; i < k; ++i) {
@@ -41,13 +34,6 @@ namespace Prog3c {
 	}
 	BigInt::BigInt(const char*& string) {
 		int s = strlen(string);
-		/*try {
-			if (_MAX_COUNT <= s)
-				throw std::range_error("String too large");
-		}
-		catch (std::range_error& error) {
-			std::cerr << error.what() << std::endl;
-		}*/
 		long curNum = atol(string);
 		bool sign = true;
 		if (curNum < 0) {
@@ -72,10 +58,15 @@ namespace Prog3c {
 		int i = 0;
 		for (; i < number.count; ++i)
 			num[i] = number.num[i];
-		for (; i < number.count + m; ++i)
+		for (; i <= number.count + m; ++i)
 			num[i] = '0';
 		count = number.count + m;
 		num[count] = number.getSign();
+	}
+	BigInt::~BigInt() {
+		if (num) {
+			delete[] num;
+		}
 	}
 	std::ostream& operator<<(std::ostream& stream, const BigInt& number) {
 		if (number.getSign() == '9') {
@@ -87,8 +78,6 @@ namespace Prog3c {
 		return stream;
 	}
 	std::istream& operator>>(std::istream& istream, BigInt& number) {
-		for (int i = 0; i < number.getMaxCount(); ++i)
-			number.setDigit(i, '0');
 		char* out = (char*)malloc(1), buf[35];
 		int n = 0, l = 0;
 		out[0] = '\0';
@@ -104,46 +93,40 @@ namespace Prog3c {
 			if (n == 0)
 				scanf_s("%*c");
 		} while (n > 0);
-		try {
-			int i = 0;
-			int c = strlen(out);
-			if (c >= number.getMaxCount())
-				throw std::range_error("Number contains maximum of digits");
-			for (; i < c; ++i) {
-				number.setDigit(c - i - 1, out[i]);
-			}
-			if (number.getDigit(c - 1) == '-') { // if number negative "-" counted like digit in number
-				number.setDigit(c - 1, '0'); // we remove this "-"
-				number.setDigit(c - 1, '9'); // and add it to last digit
-				number.setCount(c - 1);
-			}
-			else
-				number.setCount(c);
+		int k = 1, c = strlen(out);
+		if (atoi(out) < 0)
+			k = 0;
+		BigInt curNum(number, c + k - 1);
+		for (int i = 0; i < c; ++i) {
+			curNum.setDigit(c - i - 1, out[i]);
 		}
-		catch (std::range_error& error) {
-			std::cerr << error.what() << std::endl;
-		}
-		free(out);
+		number = curNum;
+		number.setCount(number.getCount() - 1);
+		if (number.getDigit(number.getCount()) == '-')
+			number.setDigit(number.getCount(), '9');
+		if (out != nullptr)
+			free(out);
 		return istream;
 	}
-	const BigInt& BigInt::operator~() {
-		BigInt* num = this;
+	const BigInt BigInt::operator~() const {
+		BigInt num;
+		num = *this;
 		BigInt res(count, 1);
-		if (num->getSign() == '9') {
-			for (int i = 0; i < num->getCount(); ++i)
-				num->setDigit(i, (9 - (num->getDigit(i) - '0')) + '0');
+		if (num.getSign() == '9') {
+			for (int i = 0; i < num.getCount(); ++i)
+				num.setDigit(i, (9 - (num.getDigit(i) - '0')) + '0');
 			int i = 0, k = 0;
-			while ((i < num->getCount() - 1) && num->getDigit(i) == '9') {
-				num->setDigit(i, '0');
+			while ((i < num.getCount() - 1) && num.getDigit(i) == '9') {
+				num.setDigit(i, '0');
 				k = ++i;
 			}
-			num->setDigit(k, ((num->getDigit(k) - '0') + 1) + '0');
-			i = num->getCount() - 1;
-			for (; num->getDigit(i) == '0' && i > 0; --i) // count last '0's (if they exist) and remove it
+			num.setDigit(k, ((num.getDigit(k) - '0') + 1) + '0');
+			i = num.getCount() - 1;
+			for (; num.getDigit(i) == '0' && i > 0; --i) // count last '0's (if they exist) and remove it
 				;
-			num->setCount(i + 1); // set count of digit without last '0's
+			num.setCount(i + 1); // set count of digit without last '0's
 		}
-		return *num;
+		return num;
 	}
 
 	BigInt BigInt::increase() {
@@ -177,46 +160,78 @@ namespace Prog3c {
 		return res;
 	}
 
-	const BigInt& BigInt::operator+(BigInt& number) {
-		char* curThis = this->num;
-		int curCount = this->count;
-		BigInt* res = this;
-		*res = ~(*res);
+	const BigInt BigInt::operator+(const BigInt& number) const {
+		BigInt res;
+		res = *this;
+		res = ~res;
 		BigInt curNum;
-		curNum = number;
-		curNum = ~curNum;
+		curNum = ~number;
 		int q1, q2, rem = 0;
-		if (res->count < curNum.count)
-			(*res).setCount(curNum.count);
-		for (int i = 0; i < count; ++i) {
-			q1 = res->getDigit(i) - '0';
+		if (res.count < curNum.count) {
+			int d = curNum.count - res.count;
+			BigInt res1(res, d);
+			res.setCount(curNum.count);
+			res = res1;
+		}
+		else if (res.count > curNum.count) {
+			int d = res.count - curNum.count;
+			BigInt curNum1(curNum, d);
+			curNum = curNum1;
+			curNum.setDigit(curNum.getCount() - d, curNum.getDigit(curNum.getCount()));
+			if (curNum.getSign() == '9') {
+				for (int i = curNum.getCount() - d; i <= curNum.getCount(); ++i)
+					curNum.setDigit(i, '9');
+			} else 
+				curNum.setDigit(curNum.getCount(), '0');
+			curNum.setCount(curNum.getCount() - d);
+		}
+		else {
+			BigInt res1(res, 1);
+			res = res1;
+			res.setDigit(res.getCount() - 1, res.getDigit(res.getCount()));
+			res.setDigit(res.getCount(), '0');
+			res.setCount(res.getCount() - 1);
+		}
+		int l = res.count;
+		bool equal = false;
+		if (curNum.getSign() == '0' && res.getSign() == '0')
+			equal = true;
+		for (int i = 0; i <= l; ++i) {
+			q1 = res.getDigit(i) - '0';
 			q2 = (curNum.getDigit(i)) - '0';
 			q1 = q1 + q2 + rem;
-			res->setDigit(i, (q1 % 10) + '0');
+			res.setDigit(i, (q1 % 10) + '0');
 			rem = q1 / 10;
+			if (i + 1 == res.count && rem != 0 && equal) {
+				res.setCount(res.getCount() + 1);
+			}
 		}
-		*res = ~(*res);
-		if (res->getCount() <= curNum.getCount()) // set max count of 2 numbers
-			res->setCount(curNum.getCount());
-		/*if (res->getDigit(res->getCount()) != '0')
-			res->setCount(res->getCount() + 1);*/
-		int i = res->getCount() - 1;
-		while (res->getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
-			res->setDigit(i, res->getSign());
+		res = ~res;
+		if (res.getCount() <= curNum.getCount()) // set count of 2 numbers
+			res.setCount(curNum.getCount());
+		int i = res.getCount() - 1;
+		while (res.getDigit(i) == '0' && i > 0) { // if we have insignificant zeros, we remove they
+			res.setDigit(i, res.getSign());
 			--i;
 		}
-		res->setCount(i + 1);
-		this->num = curThis;
-		this->count = curCount;
-		return *res;
+		if (res.getSign() != '0' && res.getSign() != '9') {
+			res.setDigit(res.getCount(), '0');
+		}
+		res.setCount(i + 1);
+		return res;
 	}
 
-	const BigInt& BigInt::operator-(BigInt& number) {
+	const BigInt BigInt::operator-(const BigInt& number) const {
+		BigInt curNum;
+		BigInt res;
+		res = *this;
+		curNum = number;
 		if (number.getSign() == '0')
-			number.setDigit(number.getCount(), '9');
+			curNum.setDigit(number.getCount(), '9');
 		else
-			number.setDigit(number.getCount(), '0');
-		return (*this + number);
+			curNum.setDigit(number.getCount(), '0');
+		res = res + curNum;
+		return res;
 	}
 
 	BigInt& BigInt::operator=(const BigInt& number) {
@@ -232,7 +247,7 @@ namespace Prog3c {
 		}
 		return *this;
 	}
-	BigInt& BigInt::operator=(BigInt&& number) {
+	BigInt& BigInt::operator=(BigInt&& number) noexcept {
 		delete[] num;
 		num = number.num;
 		count = number.count;

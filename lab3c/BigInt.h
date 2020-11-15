@@ -20,9 +20,9 @@ namespace Prog3c {
 		BigInt(BigInt&& cur) : count(cur.count), num(cur.num) {
 			cur.num = nullptr;
 		}
+		~BigInt(); // destructor
 		//geters
 		int getCount() const { return count; } // get count of digit in number
-		int getMaxCount() const { return _MAX_COUNT; } // get max count of digit in number
 		char getSign() const { return num[count]; } // get sign
 		char getDigit(int i) const { return num[i]; } // get one digit for the index
 
@@ -33,15 +33,14 @@ namespace Prog3c {
 		//other methods
 		friend std::ostream& operator<<(std::ostream& stream, const BigInt& number);
 		friend std::istream& operator>>(std::istream& stream, BigInt& number);
-		const BigInt& operator~();
+		const BigInt operator~() const;
 		BigInt increase(); // * 10
 		BigInt decrease(); // dim 10
-		const BigInt& operator+(BigInt& number);
-		const BigInt& operator-(BigInt& number);
+		const BigInt operator+(const BigInt& number) const;
+		const BigInt operator-(const BigInt& number) const;
 		BigInt& operator=(const BigInt& number);
-		BigInt& operator=(BigInt&&);
+		BigInt& operator=(BigInt&&) noexcept;
 	private:
-		static const int _MAX_COUNT = 13; // max digit
 		int count; // digit in number
 		char* num; // number
 	};
