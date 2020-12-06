@@ -1,23 +1,20 @@
 #pragma once
 #include "descriptor.h"
+#include "md5.h"
+#include <vector>
+#include <map>
 
 namespace Prog4 {
-	typedef struct TableElem {
-		int cipher;
-		descriptor* ptr;
-	}TableElem;
 	class Table
 	{
 	private:
 		int n;
 		static const int N = 10;
-		TableElem ar[N];
+		std::map<std::string, descriptor*> ar; // map
 	public:
 		//constructors
-		Table() : n(0) {
-			for (int i = 0; i < N; ++i)
-				ar[i].cipher = 0, ar[i].ptr = nullptr;
-		}
+		Table() : n(0) {}
+		~Table() { ar.clear(); }
 		//getters
 		int getN() { return n; }
 		void setN(int newN) {
@@ -26,10 +23,10 @@ namespace Prog4 {
 			else std::cout << "New n less than 0";
 		}
 		// other methods
-		void DFind(int ciph);
-		descriptor* find(int ciph);
-		int add(descriptor& val, int ciph);
+		int DFind(std::string);
+		descriptor* find(std::string);
+		int add(descriptor& val);
 		void show();
-		int del(int ciph);
+		int del(std::string ciph);
 	};
 }

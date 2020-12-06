@@ -10,36 +10,34 @@ namespace Prog4 {
 		std::string name;
 		std::string firm, country;
 		int count, cost;
-		bool type; // 1 - wDescriptor, 0 - rDescriptor
+		virtual std::ostream& show(std::ostream&) const = 0;
+		virtual std::istream& get(std::istream&) = 0;
 	public:
 		//constructors
-		descriptor() : name(""), firm(""), country(""), count(0), cost(0), type(0) { }
-		descriptor(std::string name1, std::string firm1, std::string country1) : name(name1), firm(firm1), country(country1), cost(0), count(1), type(0) {}
-		descriptor(std::string name1, std::string firm1, std::string country1, int cost1) :
-			name(name1), firm(firm1), country(country1), cost(cost1), count(1), type(0) {}
+		descriptor() : name(""), firm(""), country(""), count(0), cost(0) { }
+		descriptor(std::string name1, std::string firm1, std::string country1) : name(name1), firm(firm1), country(country1), cost(0), count(0) {}
+		//descriptor(std::string name1, std::string firm1, std::string country1, int cost1) :
+			//name(name1), firm(firm1), country(country1), cost(cost1), count(1) {}
 		descriptor(std::string name1, std::string firm1, std::string country1, int count1, int cost1) :
-			name(name1), firm(firm1), country(country1), cost(cost1), count(count1), type(0) {}
+			name(name1), firm(firm1), country(country1), cost(cost1), count(count1) {}
+		virtual ~descriptor() {}
 		//getters
 		std::string getName() { return name; }
 		std::string getFirm() { return firm; }
 		std::string getCountry() { return country; }
 		int getCount() { return count; }
 		int getCost() { return cost; }
-		bool getType() { return type; }
+		virtual char getType() const = 0;
 		//setters
-		void setCount(int newCount) {
-			if (newCount >= 0)
-				count = newCount;
-			else std::cout << "New count less than 0" << std::endl;
-		}
-		void setCost(int newCost) {
-			if (newCost >= 0)
-				cost = newCost;
-			else std::cout << "New cost less than 0" << std::endl;
-		}
-		void setType(bool newType) { type = newType; }
-		// virtual function
-		virtual void getConvert() = 0;
+		void setName(std::string newName) { name = newName; }
+		void setFirm(std::string newFirm) { firm = newFirm; }
+		void setCountry(std::string newCountry) { country = newCountry; }
+		void setCount(int newCount);
+		void setCost(int newCost);
+		// other methods
+		virtual double sale(int val) = 0;
+		friend std::ostream& operator<<(std::ostream&, const descriptor&);
+		friend std::istream& operator>>(std::istream&, descriptor&);
 	};
 
 }

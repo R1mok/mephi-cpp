@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Executable>C:\Users\anton\source\repos\lab4\Debug\TestForLab4.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="TestCaseName.TestName" Duration="1" />
+    <TestDuration Test="ConstructorTest.wDescriptor1" Duration="1" />
+    <TestDuration Test="ConstructorTest.wDescriptor2" Duration="1" />
+    <TestDuration Test="ConstructorTest.wDescriptor3" Duration="1" />
+    <TestDuration Test="ConstructorTest.wDescriptor4" Duration="1" />
+    <TestDuration Test="ConstructorTest.wDescriptor5" Duration="1" />
+    <TestDuration Test="wDescriptorConstructorTest.wDescriptor1" Duration="1" />
+    <TestDuration Test="wDescriptorConstructorTest.wDescriptor2" Duration="1" />
+    <TestDuration Test="wDescriptorConstructorTest.wDescriptor3" Duration="1" />
+    <TestDuration Test="wDescriptorConstructorTest.wDescriptor4" Duration="1" />
+    <TestDuration Test="wDescriptorConstructorTest.wDescriptor5" Duration="1" />
+    <TestDuration Test="rDescriptorConstructorTest.rDescriptor1" Duration="1" />
+    <TestDuration Test="rDescriptorConstructorTest.rDescriptor2" Duration="1" />
+    <TestDuration Test="rDescriptorConstructorTest.rDescriptor3" Duration="1" />
+    <TestDuration Test="rDescriptorConstructorTest.rDescriptor4" Duration="1" />
+    <TestDuration Test="rDescriptorConstructorTest.rDescriptor5" Duration="1" />
+    <TestDuration Test="TableCobstructorTest.Table1" Duration="1" />
+    <TestDuration Test="TableConstructorTest.Table1" Duration="1" />
+    <TestDuration Test="TableAddTest.Table1" Duration="1" />
+    <TestDuration Test="TableDelTest.Table1" Duration="1" />
+    <TestDuration Test="ConstructorTest.rDescriptor1" Duration="1" />
+    <TestDuration Test="ConstructorTest.rDescriptor2" Duration="1" />
+    <TestDuration Test="ConstructorTest.rDescriptor3" Duration="1" />
+    <TestDuration Test="ConstructorTest.rDescriptor4" Duration="1" />
+    <TestDuration Test="ConstructorTest.rDescriptor5" Duration="1" />
+    <TestDuration Test="ConstructorTest.Table1" Duration="1" />
+    <TestDuration Test="SaleTest.rDescriptor1" Duration="1" />
+    <TestDuration Test="SaleTest.wDescriptor1" Duration="1" />
+  </TestDurations>
+</GtaTestDurations>
