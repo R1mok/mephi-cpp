@@ -23,7 +23,6 @@ namespace Prog4 {
 		//setters
 		void setAllowance(int newAllowance);
 		double sale(int saleCount);
-		//descriptor* getConvert(int newWholesale);
+		descriptor* getConvert(int newWholesale);
 	};
 }
-

@@ -30,4 +30,14 @@ namespace Prog4 {
 		this->setCount(this->getCount() - wholesale);
 		return AllCost;
 	}
+	descriptor* wDescriptor::getConvert(int newAllowance) {
+		rDescriptor* newVal = new rDescriptor;
+		newVal->setName(this->getName());
+		newVal->setFirm(this->getFirm());
+		newVal->setCountry(this->getCountry());
+		newVal->setCost(this->getCost());
+		newVal->setCount(this->getCount());
+		newVal->setAllowance(newAllowance);
+		return newVal;
+	}
 }

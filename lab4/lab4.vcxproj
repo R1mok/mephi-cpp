@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="descriptor.h" />
     <ClInclude Include="md5.h" />
+    <ClInclude Include="MyMap.h" />
     <ClInclude Include="rDescriptor.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="wDescriptor.h" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "descriptor.h"
-#include "rDescriptor.h"
+#include "Table.h"
 
 namespace Prog4 {
 	class wDescriptor : public descriptor
@@ -24,6 +24,6 @@ namespace Prog4 {
 		//setters
 		void setCountWholesale(int newCW);
 		double sale(int wholesale);
-		//descriptor* getConvert(int newAllowance);
+		descriptor* getConvert(int newAllowance);
 	};
 }

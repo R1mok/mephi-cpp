@@ -1,7 +1,7 @@
 #include "descriptor.h"
 #include <iostream>
 
-namespace Prog4 {
+namespace Prog4 { // w â r constructor
 	void descriptor::setCount(int newCount) {
 		if (newCount >= 0)
 			count = newCount;

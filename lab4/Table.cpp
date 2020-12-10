@@ -31,7 +31,8 @@ namespace Prog4 {
 		}
 		return 0;
 	}
-	int Table::del(std::string ciph) {
+	int Table::del(std::string name) {
+		std::string	ciph = get_md5(name);
 		if (this->DFind(ciph) == 0) {
 			this->ar.erase(ciph);
 			this->setN(this->getN() - 1);
@@ -40,7 +41,14 @@ namespace Prog4 {
 	}
 	void Table::show() {
 		for (auto i : this->ar) {
-			std::cout << "Cipher: " << i.first << " " << *this->ar[i.first] << std::endl;
+			std::cout << "Cipher: " << i.first << " " << *i.second << std::endl;
 		}
+	}
+	int Table::changeEl(descriptor* val, int newVal) {
+		descriptor* a;
+		a = val->getConvert(newVal);
+		this->del(get_md5(val->getName()));
+		this->add(*a);
+		return 0;
 	}
 }

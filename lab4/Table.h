@@ -3,6 +3,7 @@
 #include "md5.h"
 #include <vector>
 #include <map>
+#include "MyMap.h"
 
 namespace Prog4 {
 	class Table
@@ -10,11 +11,11 @@ namespace Prog4 {
 	private:
 		int n;
 		static const int N = 10;
-		std::map<std::string, descriptor*> ar; // map
+		MyMap<std::string, descriptor*> ar; // map // + list
 	public:
 		//constructors
 		Table() : n(0) {}
-		~Table() { ar.clear(); }
+		~Table() { } // desctructor include in MyMap
 		//getters
 		int getN() { return n; }
 		void setN(int newN) {
@@ -28,5 +29,6 @@ namespace Prog4 {
 		int add(descriptor& val);
 		void show();
 		int del(std::string ciph);
+		int changeEl(descriptor* a, int newVal);
 	};
 }

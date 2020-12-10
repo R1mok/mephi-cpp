@@ -1,3 +1,2 @@
 ﻿  lab4.cpp
-C:\Users\anton\source\repos\lab4\lab4.cpp(21,10): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
   lab4.vcxproj -> C:\Users\anton\source\repos\lab4\Debug\lab4.exe
