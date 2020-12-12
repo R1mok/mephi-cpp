@@ -28,7 +28,7 @@ namespace Prog4 {
 		descriptor* find(std::string);
 		int add(descriptor& val);
 		void show();
-		int del(std::string ciph);
+		int del(std::string name);
 		int changeEl(descriptor* a, int newVal);
 	};
 }

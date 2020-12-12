@@ -4,7 +4,11 @@ c:\users\anton\source\repos\lab4\debug\wdescriptor.obj
 c:\users\anton\source\repos\lab4\debug\table.obj
 c:\users\anton\source\repos\lab4\debug\rdescriptor.obj
 c:\users\anton\source\repos\lab4\debug\md5.obj
+c:\users\anton\source\repos\lab4\debug\lab4.obj
 c:\users\anton\source\repos\lab4\debug\descriptor.obj
+c:\users\anton\source\repos\lab4\debug\lab4.exe
+c:\users\anton\source\repos\lab4\debug\lab4.ilk
+c:\users\anton\source\repos\lab4\debug\lab4.pdb
 c:\users\anton\source\repos\lab4\debug\testforlab4.ilk
 c:\users\anton\source\repos\lab4\debug\gtest.pdb
 c:\users\anton\source\repos\lab4\debug\gtest_main.pdb
@@ -12,3 +16,6 @@ c:\users\anton\source\repos\lab4\debug\testforlab4.pdb
 c:\users\anton\source\repos\lab4\debug\lab4.tlog\cl.command.1.tlog
 c:\users\anton\source\repos\lab4\debug\lab4.tlog\cl.read.1.tlog
 c:\users\anton\source\repos\lab4\debug\lab4.tlog\cl.write.1.tlog
+c:\users\anton\source\repos\lab4\debug\lab4.tlog\link.command.1.tlog
+c:\users\anton\source\repos\lab4\debug\lab4.tlog\link.read.1.tlog
+c:\users\anton\source\repos\lab4\debug\lab4.tlog\link.write.1.tlog

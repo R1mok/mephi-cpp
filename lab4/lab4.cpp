@@ -9,17 +9,109 @@
 using namespace Prog4;
 int main()
 {
-	MyMap<std::string, descriptor*> map;
-	std::string name1 = "Iphone", firm1 = "Apple",country1 = "Russia";
-	int count1 = 32, cost1 = 100;
-	std::string name2 = "Mac", firm2 = "Apple", country2 = "USA";
-	int count2 = 42, cost2 = 300;
-	wDescriptor w(name2, "4", country2, count2, cost2, 10);
-	rDescriptor r(name1, "2", country1, count1, cost1, 120);
-	rDescriptor r1("dsad", "1", "ewqds", 21, 424, 122);
-	wDescriptor w1("sda", "3", "dsafg", 34, 12, 532);
-	rDescriptor r2("", "5", "", 42, 421, 123);
-	std::string str = get_md5(r1.getName());
 	Table t;
+	const char* message[] = {
+		"0. Quit",
+		"1.Insert or change product in table",
+		"2.Sell product",
+		"3.Show table" };
+	const int countMessage = sizeof(message) / sizeof(message[0]);
+	std::string name, firm, country;
+	while (1) {
+		int c;
+		for (int i = 0; i < countMessage; ++i)
+			std::cout << message[i] << std::endl;
+		std::cin >> c;
+		if (c == 0) {
+			break;
+		}
+		if (c == 1) {
+			char ans;
+			std::cout << "Is it a wholesale or retail product? (w, r)" << std::endl;
+			std::cin >> ans;
+			if (ans == 'w') {
+				int count, cost, wholesale;
+				std::cout << "Enter product name: ";
+				std::cin >> name;
+				std::cout << "Enter firm: ";
+				std::cin >> firm;
+				std::cout << "Enter country: ";
+				std::cin >> country;
+				std::cout << "Enter product quantity: ";
+				std::cin >> count;
+				std::cout << "Enter product cost: ";
+				std::cin >> cost;
+				std::cout << "Enter the size of the wholesale: ";
+				std::cin >> wholesale;
+				std::cout << std::endl;
+				wDescriptor* w = new wDescriptor;
+				w->setCost(cost);
+				w->setCount(count);
+				w->setCountWholesale(wholesale);
+				w->setFirm(firm);
+				w->setCountry(country);
+				w->setName(name); 
+				descriptor* val = t.find(get_md5(w->getName()));
+				if (val == nullptr)
+					t.add(*w);
+				else {
+					w->setCount(val->getCount() + w->getCount());
+					t.del(val->getName());
+					t.add(*w);
+				}
+			}
+			else if (ans == 'r') {
+				int count, cost, allowance;
+				std::cout << "Enter product name: ";
+				std::cin >> name;
+				std::cout << "Enter firm: ";
+				std::cin >> firm;
+				std::cout << "Enter country: ";
+				std::cin >> country;
+				std::cout << "Enter product quantity: ";
+				std::cin >> count;
+				std::cout << "Enter product cost: ";
+				std::cin >> cost;
+				std::cout << "Enter allowance: ";
+				std::cin >> allowance;
+				std::cout << std::endl;
+				rDescriptor* r = new rDescriptor;
+				r->setCost(cost);
+				r->setCount(count);
+				r->setAllowance(allowance);
+				r->setFirm(firm);
+				r->setCountry(country);
+				r->setName(name);
+				descriptor* val = t.find(r->getName());
+				if (val == nullptr)
+					t.add(*r);
+				else {
+					r->setCount(val->getCount() + r->getCount());
+					t.del(val->getName());
+					t.add(*r);
+				}
+			}
+		}
+		if (c == 2) {
+			int count;
+			std::cout << "Enter the name of the product you want to sell: ";
+			std::cin >> name;
+			std::cout << "Enter the count of products to sell: ";
+			std::cin >> count;
+			descriptor* val = t.find(get_md5(name));
+			if (val == nullptr)
+				std::cout << "Product with this name not found" << std::endl;
+			else {
+				double allcost = val->sale(count);
+				t.del(name);
+				t.add(*val);
+				if (allcost > 0)
+					std::cout << "Cost of goods sold: " << allcost << std::endl;
+			}
+		}
+		if (c == 3) {
+			t.show();
+		}
+	}
 	return 0;
 }

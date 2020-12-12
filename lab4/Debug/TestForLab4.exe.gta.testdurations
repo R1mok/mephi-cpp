@@ -30,5 +30,11 @@
     <TestDuration Test="ConstructorTest.Table1" Duration="1" />
     <TestDuration Test="SaleTest.rDescriptor1" Duration="1" />
     <TestDuration Test="SaleTest.wDescriptor1" Duration="1" />
+    <TestDuration Test="MyMapTest.Constructor" Duration="1" />
+    <TestDuration Test="MyMapTest.Insert" Duration="1" />
+    <TestDuration Test="MyMapTest.Insert1" Duration="1" />
+    <TestDuration Test="MyMapTest.Insert2" Duration="1" />
+    <TestDuration Test="MyMapTest.Delete1" Duration="1" />
+    <TestDuration Test="MyMapTest.Value1" Duration="1" />
   </TestDurations>
 </GtaTestDurations>
