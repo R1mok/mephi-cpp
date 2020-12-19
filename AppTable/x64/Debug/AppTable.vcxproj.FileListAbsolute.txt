@@ -1,0 +1,2 @@
+C:\Users\anton\source\repos\AppTable\x64\Debug\AppTable.exe
+C:\Users\anton\source\repos\AppTable\x64\Debug\AppTable.pdb

@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppTable", "AppTable.vcxproj", "{682E8B0A-78B9-4784-BA37-75DC1BB1488F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Debug|x64.ActiveCfg = Debug|x64
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Debug|x64.Build.0 = Debug|x64
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Debug|x86.ActiveCfg = Debug|x64
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Release|x64.ActiveCfg = Release|x64
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Release|x64.Build.0 = Release|x64
+		{682E8B0A-78B9-4784-BA37-75DC1BB1488F}.Release|x86.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48911BED-4C43-403E-8705-7BE01C399657}
+	EndGlobalSection
+EndGlobal
